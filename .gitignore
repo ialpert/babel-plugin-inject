@@ -1,0 +1,12 @@
+*~
+.DS_Store
+logs
+*.log
+npm-debug.log*
+coverage
+.grunt
+.lock-wscript
+build/Release
+lib
+node_modules
+.idea
