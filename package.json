@@ -4,7 +4,7 @@
   "description": "Babel plugin for code injection",
   "main": "lib/index.js",
   "scripts": {
-    "test": " node ./node_modules/.bin/isparta cover src/ ./node_modules/.bin/_mocha",
+    "test": "node ./node_modules/.bin/isparta cover src/ ./node_modules/.bin/_mocha",
     "build": "./node_modules/.bin/babel --presets es2015 src --out-dir lib",
     "prepublish": "./node_modules/.bin/babel --presets es2015 src --out-dir lib"
   },

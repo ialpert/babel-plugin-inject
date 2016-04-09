@@ -1,6 +1,5 @@
-//import * as plugins from './plugins';
 import glob from 'glob';
-import * as _ from 'lodash';
+import {each, extend, isString, isFunction} from 'lodash';
 import {resolve, dirname, join, basename, extname} from "path";
 
 export default function ({ types: t }) {
@@ -10,8 +9,8 @@ export default function ({ types: t }) {
 
 
   glob(join(__dirname, 'plugins', '*.js'), {}, function (err, files) {
-    _.each(files, (plugin) => {
-      _.extend(plugins, require(plugin));
+    each(files, (plugin) => {
+      extend(plugins, require(plugin));
     });
   });
 
@@ -26,14 +25,14 @@ export default function ({ types: t }) {
           let value = node['arguments'][0].value;
           let ext = extname(value).substr(1);
 
-          if (_.isString(value)) {
+          if (isString(value)) {
 
             let args = {src: value, t: t, nodePath: nodePath, state: state};
 
             if (plugins[value] !== undefined) {
               nodePath.replaceWithSourceString(plugins[value](args));
 
-            } else if (_.isFunction(plugins[ext])) {
+            } else if (isFunction(plugins[ext])) {
 
               let res = plugins[ext](args);
 
