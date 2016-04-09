@@ -30,7 +30,10 @@
     "expect": "^1.16.0",
     "isparta": "^4.0.0",
     "istanbul": "^0.4.3",
-    "lodash": "^4.8.2",
     "mocha": "^2.4.5"
+  },
+  "dependencies": {
+    "glob": "^7.0.3",
+    "lodash": "^4.8.2"
   }
 }

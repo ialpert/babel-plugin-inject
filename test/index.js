@@ -8,7 +8,7 @@ import * as path from 'path';
 
 let babelOpts = {
   presets: ['es2015'],
-  plugins: ['../../lib/index.js']
+  plugins: ['../../src/index.js']
 };
 
 

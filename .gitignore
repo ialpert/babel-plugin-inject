@@ -10,3 +10,4 @@ build/Release
 lib
 node_modules
 .idea
+lib

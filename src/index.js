@@ -1,48 +1,54 @@
-import * as plugins from "./plugins";
-import {extname} from "path";
-
+//import * as plugins from './plugins';
+import glob from 'glob';
+import * as _ from 'lodash';
+import {resolve, dirname, join, basename, extname} from "path";
 
 export default function ({ types: t }) {
 
-    return {
-        visitor: {
-            CallExpression: function CallExpression(nodePath, state) {
-                var node, value, fn, ext, res;
-                node = nodePath.node;
-                fn = state.opts.fn || 'inject';
+
+  let plugins = {};
 
 
-                if (node.callee.name === fn && node['arguments'].length == 1) {
-                    value = node['arguments'][0].value;
-                    ext = extname(value).substr(1);
+  glob(join(__dirname, 'plugins', '*.js'), {}, function (err, files) {
+    _.each(files, (plugin) => {
+      _.extend(plugins, require(plugin));
+    });
+  });
 
-                    if (typeof  value === 'string' && value.length > 0) {
+  return {
+    visitor: {
+      CallExpression: (nodePath, state) => {
+        let node = nodePath.node;
+        let fn = state.opts.fn || 'inject';
 
-                        var args = {src: value, t: t, nodePath: nodePath, state: state};
 
-                        if (plugins[value] !== undefined) {
-                            nodePath.replaceWithSourceString(plugins[value](args));
+        if (node.callee.name === fn && node['arguments'].length == 1) {
+          let value = node['arguments'][0].value;
+          let ext = extname(value).substr(1);
 
-                        } else if (typeof plugins[ext] === 'function') {
+          if (_.isString(value)) {
 
-                            res = plugins[ext](args);
+            let args = {src: value, t: t, nodePath: nodePath, state: state};
 
-                            switch (typeof res) {
-                                case 'function':
-                                    nodePath.replaceWithSourceString(res);
-                                    break;
+            if (plugins[value] !== undefined) {
+              nodePath.replaceWithSourceString(plugins[value](args));
 
-                                default:
-                                    nodePath.replaceWith(t.valueToNode(res));
-                                    break;
-                            }
+            } else if (_.isFunction(plugins[ext])) {
 
-                        } else {
-                            nodePath.replaceWith(t.nullLiteral());
-                        }
-                    }
-                }
+              let res = plugins[ext](args);
+
+              if (typeof res === 'function') {
+                nodePath.replaceWithSourceString(res);
+              } else {
+                nodePath.replaceWith(t.valueToNode(res));
+              }
+
+            } else {
+              nodePath.replaceWith(t.nullLiteral());
             }
+          }
         }
-    };
+      }
+    }
+  };
 }
