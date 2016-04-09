@@ -2,15 +2,17 @@
 
 import {parse, transform, transformFile, traverse, types as t} from 'babel-core';
 import expect, { createSpy, spyOn, isSpy } from 'expect';
-import {join} from 'path';
+import {join, resolve} from 'path';
 import {readFile} from 'fs';
 import * as path from 'path';
 
+
+let pluginPath = join(__dirname, '../src/index.js');
+
 let babelOpts = {
   presets: ['es2015'],
-  plugins: ['../../src/index.js']
+  plugins: [pluginPath]
 };
-
 
 function test(name, next, opts = babelOpts) {
   transformFile(join('test', 'fixtures', name), opts, (err, babelFixture)=> {
@@ -69,7 +71,7 @@ describe('Babel Plugin Inject', () => {
   it('Should be non conflict and support another function name -- inject2', (next) => {
     test('test7.js', next, {
       presets: ['es2015'],
-      plugins: [['../../lib/index.js', {fn: 'inject2'}]]
+      plugins: [[pluginPath, {fn: 'inject2'}]]
     });
   });
 
