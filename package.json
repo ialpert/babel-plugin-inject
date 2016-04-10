@@ -1,12 +1,12 @@
 {
   "name": "babel-plugin-inject",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Babel plugin for code injection",
   "main": "lib/index.js",
   "scripts": {
     "test": "nyc --reporter=lcov --reporter=text-lcov _mocha && codecov",
-    "build": "./node_modules/.bin/babel --presets es2015 src --out-dir lib",
-    "prepublish": "./node_modules/.bin/babel --presets es2015 src --out-dir lib"
+    "build": "babel --presets es2015 src --out-dir lib",
+    "prepublish": "babel --presets es2015 src --out-dir lib"
   },
   "repository": {
     "type": "git",
