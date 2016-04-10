@@ -35,7 +35,6 @@ function test(name, next, opts = babelOpts) {
 
           expect(result).toBeTruthy();
           expect(code).toBe(result);
-
           next();
         });
 
@@ -89,15 +88,13 @@ describe('Babel Plugin Inject', () => {
     });
   });
 
-
-  it('Should be able to call helpers - injectCSS', (next) => {
-    let injectCSS = require('../lib/plugins/injectCSS').injectCSS();
+  it('injectCSS helper', (next) => {
+    let injectCSS = require('../src/plugins/injectCSS').injectCSS();
 
     injectCSS('body{color:red}');
     expect(window.getComputedStyle(document.body).color).toBe('red');
 
     next();
   });
-
 
 });
