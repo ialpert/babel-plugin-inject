@@ -1,6 +1,5 @@
 *.log
 coverage
-lib
 node_modules
 .idea
 .nyc_output
