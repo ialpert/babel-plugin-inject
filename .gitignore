@@ -11,3 +11,4 @@ lib
 node_modules
 .idea
 lib
+.nyc_output

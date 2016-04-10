@@ -11,13 +11,12 @@ let pluginPath = join(__dirname, '../src/index.js');
 
 let babelOpts = {
   presets: ['es2015'],
-  plugins: [pluginPath]
+  plugins: [pluginPath, ['__coverage__', {'ignore': 'test/'}]]
 };
 
 function test(name, next, opts = babelOpts) {
   transformFile(join('test', 'fixtures', name), opts, (err, babelFixture)=> {
     var code;
-
 
     expect(err).toBe(null);
 
