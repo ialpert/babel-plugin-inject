@@ -8,7 +8,10 @@
     "inject": true,
     "mdManager": true,
     "$": true,
-    "jQuery": true
+    "jQuery": true,
+    "scope": true,
+    "describe": true,
+    "it": true
   },
   "rules": {
     "no-console": 0

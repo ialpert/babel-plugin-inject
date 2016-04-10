@@ -1,10 +1,11 @@
 'use strict';
 
-import {parse, transform, transformFile, traverse, types as t} from 'babel-core';
-import expect, { createSpy, spyOn, isSpy } from 'expect';
-import {join, resolve} from 'path';
-import {readFile} from 'fs';
-import * as path from 'path';
+import {transformFile} from 'babel-core';
+import expect from 'expect';
+import jsdom from 'mocha-jsdom';
+import vm from 'vm';
+import {join} from 'path';
+import {readFile, access} from 'fs';
 
 
 let pluginPath = join(__dirname, '../src/index.js');
@@ -15,29 +16,45 @@ let babelOpts = {
 };
 
 function test(name, next, opts = babelOpts) {
-  transformFile(join('test', 'fixtures', name), opts, (err, babelFixture)=> {
-    var code;
+
+  const testFilePath = join('test', 'fixtures', name);
+  const resultsFilePath = join('test', 'results', name);
+
+  transformFile(testFilePath, opts, (err, babelFixture)=> {
 
     expect(err).toBe(null);
 
-    readFile(join('test', 'results', name), 'utf8', (err, result)=> {
+    let code = babelFixture.code.replace(/\n/g, '');
 
-      code = babelFixture.code.replace(/\n/g, '');
+    expect(code).toBeTruthy();
 
-      expect(code).toBeTruthy();
+    access(resultsFilePath, function (err) {
+      if (!err) {
+        readFile(resultsFilePath, 'utf8', (err, result)=> {
 
-      result = result && result.replace(/\n/g, '');
+          result = result && result.replace(/\n/g, '');
 
-      expect(result).toBeTruthy();
-      expect(code).toBe(result);
-      next();
+          expect(result).toBeTruthy();
+          expect(code).toBe(result);
+
+          next();
+        });
+
+      } else {
+        vm.runInThisContext(code);
+        next();
+      }
     });
+
 
   });
 }
 
 
 describe('Babel Plugin Inject', () => {
+
+  jsdom();
+
 
   it('Empty test to make sure it runs', (next) => {
     test('test1.js', next);
@@ -71,6 +88,18 @@ describe('Babel Plugin Inject', () => {
     test('test7.js', next, {
       presets: ['es2015'],
       plugins: [[pluginPath, {fn: 'inject2'}]]
+    });
+  });
+
+
+  it('Should be able to call helpers - injectCSS', (next) => {
+
+    test('test8.js', function () {
+
+      expect(global.test8Fixture).toBe('body {color: red}');
+      expect(window.getComputedStyle(document.body).color).toBe('red');
+
+      next();
     });
   });
 
