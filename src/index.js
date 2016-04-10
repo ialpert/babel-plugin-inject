@@ -1,18 +1,17 @@
-import glob from 'glob';
+import {sync} from 'glob';
 import {each, extend, isString, isFunction} from 'lodash';
-import {resolve, dirname, join, basename, extname} from "path";
+import {join,extname} from "path";
+
 
 export default function ({ types: t }) {
-
 
   let plugins = {};
 
 
-  glob(join(__dirname, 'plugins', '*.js'), {}, function (err, files) {
-    each(files, (plugin) => {
-      extend(plugins, require(plugin));
-    });
+  each(sync(join(__dirname, 'plugins', '*.js')), (plugin) => {
+    extend(plugins, require(plugin));
   });
+
 
   return {
     visitor: {

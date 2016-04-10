@@ -7,12 +7,11 @@ function txt(args) {
 
   src = resolve(dirname(state.file.opts.filename), src);
 
-  if (existsSync(src)) {
+  if (src && existsSync(src)) {
     return readFileSync(src, 'utf8');
   }
 
-  console.log('File not found: %s', src);
-  return '';
+  return args.src;
 }
 
 export {txt as txt};

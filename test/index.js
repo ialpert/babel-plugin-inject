@@ -23,7 +23,7 @@ function test(name, next, opts = babelOpts) {
 
     expect(err).toBe(null);
 
-    let code = babelFixture.code.replace(/\n/g, '');
+    let code = babelFixture.code.replace(/[\n\s]/g, '');
 
     expect(code).toBeTruthy();
 
@@ -31,7 +31,7 @@ function test(name, next, opts = babelOpts) {
       if (!err) {
         readFile(resultsFilePath, 'utf8', (err, result)=> {
 
-          result = result && result.replace(/\n/g, '');
+          result = result && result.replace(/[\n\s]/g, '');
 
           expect(result).toBeTruthy();
           expect(code).toBe(result);
