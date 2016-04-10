@@ -3,7 +3,6 @@
 import {transformFile} from 'babel-core';
 import expect from 'expect';
 import jsdom from 'mocha-jsdom';
-import vm from 'vm';
 import {join} from 'path';
 import {readFile, access} from 'fs';
 
@@ -41,7 +40,6 @@ function test(name, next, opts = babelOpts) {
         });
 
       } else {
-        vm.runInThisContext(code);
         next();
       }
     });
@@ -93,14 +91,12 @@ describe('Babel Plugin Inject', () => {
 
 
   it('Should be able to call helpers - injectCSS', (next) => {
+    let injectCSS = require('../lib/plugins/injectCSS').injectCSS();
 
-    test('test8.js', function () {
+    injectCSS('body{color:red}');
+    expect(window.getComputedStyle(document.body).color).toBe('red');
 
-      expect(global.test8Fixture).toBe('body {color: red}');
-      expect(window.getComputedStyle(document.body).color).toBe('red');
-
-      next();
-    });
+    next();
   });
 
 
