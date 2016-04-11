@@ -1,9 +1,12 @@
-# babel-plugin-inject [![Build Status][travis-image]][travis-url][![codecov.io][codecov-image]][codecov-url]
+# babel-plugin-inject [![Build Status][travis-image]][travis-url][![codecov.io][codecov-image]][codecov-url] [![Code Climate][codeclimate-image]][codeclimate-url]
 
 [codecov-image]: https://codecov.io/github/ialpert/babel-plugin-inject/coverage.svg?branch=master
 [codecov-url]: https://codecov.io/github/ialpert/babel-plugin-inject?branch=master
 [travis-url]: http://travis-ci.org/ialpert/babel-plugin-inject
 [travis-image]: http://travis-ci.org/ialpert/babel-plugin-inject.svg?branch=master
+
+[codeclimate-image]: https://codeclimate.com/github/ialpert/babel-plugin-inject/badges/gpa.svg
+[codeclimate-url]: https://codeclimate.com/github/ialpert/babel-plugin-inject
 
 ## Proposal
 

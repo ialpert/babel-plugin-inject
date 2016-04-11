@@ -5,3 +5,6 @@ node_js:
 cache:
   directories:
   - node_modules
+addons:
+    code_climate:
+        repo_token: e96f3dadda7527b545f8a3362b50ae6d6493a21ba990ea8b19ecd55c36ebf781
