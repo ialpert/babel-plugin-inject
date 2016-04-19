@@ -100,9 +100,11 @@ require("babel-core").transform('source code', {
 
 ### No Conflict
 
+We use another name for our function not to mess with existing inject() if any:
+
 ```javascript
 require("babel-core").transform('source code', {
-  plugins: [['babel-plugin-inject', {fn: 'inject2'}]] // We use another name for our function not to mess with existing inject() if any
+  plugins: [['babel-plugin-inject', {fn: 'inject2'}]]
 });
 ```
 
