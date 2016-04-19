@@ -57,7 +57,7 @@ injectCSS('body{color:red}');
 ## Plugins
 
 1. *txt* Simple plain text injection, used as a base for other content driven plugins
-2. *html*, *html* Placeholder for HTML injection. At this moment do nothing more then *txt* Could be extended to minify/optimize html
+2. *htm*, *html* Placeholder for HTML injection. At this moment do nothing more then *txt* Could be extended to minify/optimize html
 3. *tpl* Compile HTML to Lodash completable template and provides temperating function
 
 
@@ -96,4 +96,17 @@ $ babel --plugins babel-plugin-inject script.js
 require("babel-core").transform('source code', {
   plugins: ['babel-plugin-inject']
 });
+```
+
+### No Conflict
+
+```javascript
+require("babel-core").transform('source code', {
+  plugins: [['babel-plugin-inject', {fn: 'inject2'}]] // We use another name for our function not to mess with existing inject() if any
+});
+```
+
+```javascript
+let injectCss = inject2('injectCSS');
+injectCSS('body{color:red}');
 ```
