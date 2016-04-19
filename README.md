@@ -13,6 +13,8 @@
 Plugin is useful in any case that requires to provide external asset or resource (mostly like css, html or txt files) 
 to be used in your code. Any embedding task like building standalone pages, email newsletters or injectable widgets for the page.
 
+**NPM Package:** https://www.npmjs.com/package/babel-plugin-inject
+
 ## Usage Example 
 
 
