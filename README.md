@@ -1,4 +1,9 @@
-# babel-plugin-inject [![Build Status][travis-image]][travis-url][![codecov.io][codecov-image]][codecov-url] [![Code Climate][codeclimate-image]][codeclimate-url]
+# babel-plugin-inject 
+
+[![Build Status][travis-image]][travis-url]
+[![codecov.io][codecov-image]][codecov-url] 
+[![Code Climate][codeclimate-image]][codeclimate-url]
+[![bitHound Overall Score](https://www.bithound.io/github/ialpert/babel-plugin-inject/badges/score.svg)](https://www.bithound.io/github/ialpert/babel-plugin-inject)
 
 [codecov-image]: https://codecov.io/github/ialpert/babel-plugin-inject/coverage.svg?branch=master
 [codecov-url]: https://codecov.io/github/ialpert/babel-plugin-inject?branch=master
